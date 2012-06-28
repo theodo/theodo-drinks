@@ -1,0 +1,16 @@
+{
+  "name": "theodo/theodo-drinks",
+  "description": "Theodo drinks manage the team drinks.",
+  "authors": [
+    {
+      "name":     "Benjamin Grandfond",
+      "email":    "benjaming@theodo.fr",
+      "homepage": "http://theodo.fr"
+    }
+  ],
+  "require": {
+    "silex/silex":          "dev-master",
+    "doctrine/mongodb-odm": "dev-master",
+    "twig/twig":            "dev-master"
+  }
+}
