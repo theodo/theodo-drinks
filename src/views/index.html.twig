@@ -3,10 +3,21 @@
 {% block content %}
 <div class="row">
   <div class="span6">
-    Users
+    <ul>
+        {% for user in users %}
+        <li>{{ user }}</li>
+        {% else %}
+        <li>{{ 'No user found.' }}</li>
+        {% endfor %}
+    </ul>
+
   </div>
   <div class="span6">
-    Drinks
+      {% for drink in drinks %}
+      <li>{{ drink }}</li>
+      {% else %}
+      <li>{{ 'No drink found.' }}</li>
+      {% endfor %}
   </div>
 </div>
 {% endblock %}

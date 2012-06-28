@@ -6,28 +6,20 @@ $app = new Drinks\Application();
 $app->configure();
 $app['loader'] = $loader;
 
-$app = new Silex\Application();
-
-$app['debug'] = $_SERVER['REMOTE_ADDR'] === '127.0.0.1' || $_SERVER['REMOTE_ADDR'] === '::1';
-
-
-$app->register(new TwigServiceProvider(), array(
-    'twig.path' => __DIR__ . '/views',
-));
-
-$app->register(new DoctrineMongoDBServiceProvider(), array(
-    'doctrine.odm.mongodb.connection_options' => array(
-        'database' => 'theodo-drinks',
-        'host' => 'localhost',
-    ),
-    'doctrine.odm.mongodb.documents' => array(
-
-    )
-));
-
 $app->get('/', function() use ($app)
 {
-    return $app['twig']->render('index.html.twig');
+    $manager = $app['doctrine.odm.mongodb.dm'];
+
+    $users = $manager->getRepository('Drinks\\Document\\User')
+        ->findAll();
+
+//    $drinks = $manager->getRepository('Drink\\Document\\Drink')
+//        ->findAll();
+
+    return $app['twig']->render('index.html.twig', array(
+        'users'  => $users,
+//        'drinks' => $drinks
+    ));
 });
 
 return $app;
