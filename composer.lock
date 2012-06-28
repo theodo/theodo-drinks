@@ -1,11 +1,22 @@
 {
-    "hash": "27037d57eac5d21a844255ba7130e413",
+    "hash": "8abc67d67eb6a2bf139f4b60367fced0",
     "packages": [
         {
-            "package": "doctrine/common",
+            "package": "docteurklein/silex-doctrine-service-providers",
             "version": "dev-master",
-            "source-reference": "0e454a92409ee594a93c362f74a3e0f42424d663",
-            "commit-date": "1340828547"
+            "source-reference": "0c5368c4b95edebaefee584b933d08dca9b88578",
+            "commit-date": "1339677022"
+        },
+        {
+            "package": "doctrine/common",
+            "version": "2.1.x-dev",
+            "source-reference": "41794945e795e108060eddb3342c9e13524b9b3e"
+        },
+        {
+            "package": "doctrine/dbal",
+            "version": "2.1.x-dev",
+            "source-reference": "76799960a54af583e82bedcf246e8c9c18006e94",
+            "commit-date": "1338146238"
         },
         {
             "package": "doctrine/mongodb",
@@ -15,9 +26,15 @@
         },
         {
             "package": "doctrine/mongodb-odm",
-            "version": "dev-master",
-            "source-reference": "11ddc65325d11731d899094bc54f4ec62949621a",
-            "commit-date": "1340834404"
+            "version": "dev-parent_document_property",
+            "source-reference": "f3ba4317bf61333c79ee2905651b82470fa36cff",
+            "commit-date": "1327095310"
+        },
+        {
+            "package": "doctrine/orm",
+            "version": "2.1.x-dev",
+            "source-reference": "417b6b0e5e81c4da90745728b3f05bd5fcb5cccd",
+            "commit-date": "1338156113"
         },
         {
             "package": "pimple/pimple",
@@ -100,12 +117,6 @@
         {
             "package": "twig/twig",
             "version": "dev-master",
-            "alias-pretty-version": "1.8.x-dev",
-            "alias-version": "1.8.9999999.9999999-dev"
-        },
-        {
-            "package": "twig/twig",
-            "version": "dev-master",
             "source-reference": "73da773aaad0f97f2e967ec8241b8adf7b1e03d2",
             "commit-date": "1340890758"
         }
@@ -117,7 +128,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "silex/silex": 20,
-        "doctrine/mongodb-odm": 20,
+        "docteurklein/silex-doctrine-service-providers": 20,
         "twig/twig": 20
     }
 }
