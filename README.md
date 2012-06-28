@@ -1,5 +1,5 @@
-Theodo Cans
+Theodo Drinks
 ===
 
-Theodo cans manage the team drinks.
+Theodo drinks manage the team drinks.
 
