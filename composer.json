@@ -11,6 +11,10 @@
   "require": {
     "silex/silex":          "dev-master",
     "docteurklein/silex-doctrine-service-providers": "dev-master",
-    "twig/twig":            "dev-master"
+    "twig/twig":            "dev-master",
+    "monolog/monolog":      "dev-master"
+  },
+  "autoload": {
+    "psr-0": {"Drinks": "src/"}
   }
 }

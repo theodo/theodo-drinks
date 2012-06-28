@@ -1,5 +1,5 @@
 {
-    "hash": "8abc67d67eb6a2bf139f4b60367fced0",
+    "hash": "d9df5d20425ccf8c0e16bb6279944ffe",
     "packages": [
         {
             "package": "docteurklein/silex-doctrine-service-providers",
@@ -10,7 +10,8 @@
         {
             "package": "doctrine/common",
             "version": "2.1.x-dev",
-            "source-reference": "41794945e795e108060eddb3342c9e13524b9b3e"
+            "source-reference": "41794945e795e108060eddb3342c9e13524b9b3e",
+            "commit-date": "1331851788"
         },
         {
             "package": "doctrine/dbal",
@@ -35,6 +36,12 @@
             "version": "2.1.x-dev",
             "source-reference": "417b6b0e5e81c4da90745728b3f05bd5fcb5cccd",
             "commit-date": "1338156113"
+        },
+        {
+            "package": "monolog/monolog",
+            "version": "dev-master",
+            "source-reference": "6cbdc0410c08fb03d7eee6b69126661fcbb89c41",
+            "commit-date": "1340715384"
         },
         {
             "package": "pimple/pimple",
@@ -129,6 +136,7 @@
     "stability-flags": {
         "silex/silex": 20,
         "docteurklein/silex-doctrine-service-providers": 20,
-        "twig/twig": 20
+        "twig/twig": 20,
+        "monolog/monolog": 20
     }
 }
