@@ -1,9 +1,10 @@
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
+$loader = require_once __DIR__ . '/../vendor/autoload.php';
 
-use Silex\Provider\TwigServiceProvider;
-use Knp\Silex\ServiceProvider\DoctrineMongoDBServiceProvider;
+$app = new Drinks\Application();
+$app->configure();
+$app['loader'] = $loader;
 
 $app = new Silex\Application();
 
