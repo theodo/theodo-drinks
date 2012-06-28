@@ -30,19 +30,19 @@ class Drink
     /**
      * Store the price in cents, divide by 100 to have the real price
      *
-     * @ODM\Integer
+     * @ODM\Int
      */
     private $purchasePrice;
 
     /**
      * Store the price in cents, divide by 100 to have the real price
      *
-     * @ODM\Integer
+     * @ODM\Int
      */
     private $salePrice;
 
     /**
-     * @ODM\Integer
+     * @ODM\Int
      */
     private $quantity;
 

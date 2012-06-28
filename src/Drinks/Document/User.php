@@ -14,7 +14,9 @@ use Drinks\Document\Consumption;
  */
 class User
 {
-    /** @ODM\Id */
+    /**
+     * @ODM\Id
+     */
     private $id;
 
     /**

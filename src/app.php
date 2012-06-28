@@ -13,12 +13,12 @@ $app->get('/', function() use ($app)
     $users = $manager->getRepository('Drinks\\Document\\User')
         ->findAll();
 
-//    $drinks = $manager->getRepository('Drink\\Document\\Drink')
-//        ->findAll();
+    $drinks = $manager->getRepository('Drinks\\Document\\Drink')
+        ->findAll();
 
     return $app['twig']->render('index.html.twig', array(
         'users'  => $users,
-//        'drinks' => $drinks
+        'drinks' => $drinks
     ));
 });
 
