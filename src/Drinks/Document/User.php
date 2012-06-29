@@ -25,6 +25,11 @@ class User
     private $name;
 
     /**
+     * @ODM\Int
+     */
+    private $balance;
+
+    /**
      * @ODM\ReferenceMany(targetDocument="Drinks\Document\Consumption", mappedBy="user")
      */
     private $consumptions = array();
@@ -83,5 +88,21 @@ class User
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param Integer $balance
+     */
+    public function setBalance($balance)
+    {
+        $this->balance = $balance;
+    }
+
+    /**
+     * @return Integer
+     */
+    public function getBalance()
+    {
+        return $this->balance;
     }
 }

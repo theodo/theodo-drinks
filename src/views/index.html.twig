@@ -1,23 +1,18 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-<div class="row">
-  <div class="span6">
-    <ul>
+<form action="/select" method="post">
+    <select name="selection[user]">
         {% for user in users %}
-        <li>{{ user }}</li>
-        {% else %}
-        <li>{{ 'No user found.' }}</li>
+        <option value="{{ user.id }}">{{ user }}</option>
         {% endfor %}
-    </ul>
-
-  </div>
-  <div class="span6">
-      {% for drink in drinks %}
-      <li>{{ drink }}</li>
-      {% else %}
-      <li>{{ 'No drink found.' }}</li>
-      {% endfor %}
-  </div>
-</div>
+    </select>
+    {% for drink in drinks %}
+    <li>
+        <input type="radio" value="{{ drink }}" name="selection[drink]"/>
+    </li>
+    {% endfor %}
+    <button type="submit" name="selection[payment]" value="now">Je paye maintenant</button>
+    <button type="submit" name="selection[payment]" value="later">Je paye plus tard</button>
+</form>
 {% endblock %}

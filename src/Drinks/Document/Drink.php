@@ -47,35 +47,6 @@ class Drink
     private $quantity;
 
     /**
-     * @ODM\ReferenceMany(targetDocument="Drinks\Document\Consumption", mappedBy="drink")
-     */
-    private $consumptions;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->consumptions = new ArrayCollection();
-    }
-
-    /**
-     * @param array $consumptions
-     */
-    public function setConsumptions($consumptions)
-    {
-        $this->consumptions = $consumptions;
-    }
-
-    /**
-     * @return \Doctrine\Common\Collections\ArrayCollection
-     */
-    public function getConsumptions()
-    {
-        return $this->consumptions;
-    }
-
-    /**
      * @param $logo
      */
     public function setLogo($logo)
