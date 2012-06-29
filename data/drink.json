@@ -1,0 +1,7 @@
+[
+    { "name": "Coca Cola", "slug": "coca-cola", "purchasePrice": 385, "salePrice": 50, "quantity": 8 },
+    { "name": "Coca Cola Zero", "slug": "coca-cola-zero", "purchasePrice": 385, "salePrice": 50, "quantity": 5 },
+    { "name": "Liptonic", "slug": "liptonic", "purchasePrice": 385, "salePrice": 50, "quantity": 6 },
+    { "name": "Iced Tea", "slug": "iced-tea", "purchasePrice": 385, "salePrice": 50, "quantity": 6 },
+    { "name": "Minute Maid", "slug": "minute-maid", "purchasePrice": 485, "salePrice": 100, "quantity": 6 }
+]
