@@ -1,28 +1,27 @@
 {
-    "name":"theodo/theodo-drinks",
-    "description":"Theodo drinks manage the team drinks.",
-    "authors":[
+    "name":        "theodo/theodo-drinks",
+    "description": "Theodo drinks manage the team drinks.",
+    "authors":     [
         {
-            "name":"Benjamin Grandfond",
-            "email":"benjaming@theodo.fr",
-            "homepage":"http://theodo.fr"
+            "name":     "Benjamin Grandfond",
+            "email":    "benjaming@theodo.fr",
+            "homepage": "http://theodo.fr"
         }
     ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "http://github.com/benja-M-1/SilexServiceProviders"
-        }
-    ],
-    "require":{
-        "silex/silex":"dev-master",
-        "docteurklein/silex-doctrine-service-providers":"dev-master",
-        "twig/twig":"dev-master",
-        "monolog/monolog":"dev-master"
+    "require":     {
+        "silex/silex":                                   "dev-master",
+        "docteurklein/silex-doctrine-service-providers": "dev-master",
+        "twig/twig":                                     "dev-master",
+        "monolog/monolog":                               "dev-master",
+        "symfony/form":                                  "dev-master",
+        "symfony/config":                                "dev-master",
+        "symfony/translation":                           "dev-master",
+        "symfony/locale":                                "dev-master",
+        "symfony/twig-bridge":                           "dev-master"
     },
-    "autoload":{
-        "psr-0":{
-            "Drinks":"src/"
+    "autoload":    {
+        "psr-0": {
+            "Drinks": "src/"
         }
     }
 }

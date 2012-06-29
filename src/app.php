@@ -15,9 +15,24 @@ $app->get('/', function () use ($app) {
     $drinks = $manager->getRepository('Drinks\\Document\\Drink')
         ->findAvailables();
 
+    $userChoices = array();
+    foreach ($users as $user) {
+        $userChoices[$user->getId()] = (string) $user;
+    };
+
+    $drinkChoices = array();
+    foreach ($drinks as $drink) {
+        $drinkChoices[$drink->getId()] = (string) $drink;
+    }
+
+    $form = $app['form.factory']->createBuilder('form', array())
+        ->add('user_id', 'choice', array('choices' => $userChoices))
+        ->add('drink_id', 'choice', array('choices' => $drinkChoices, 'expanded' => true))
+        ->getForm();
+
+
     return $app['twig']->render('select.html.twig', array(
-        'users'  => $users,
-        'drinks' => $drinks,
+        'form' => $form->createView(),
     ));
 })
 ->bind('homepage');

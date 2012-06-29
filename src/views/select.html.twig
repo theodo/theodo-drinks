@@ -1,28 +1,42 @@
-{% extends layout %}
+{% extends 'layout.html.twig' %}
+
+{% form_theme form _self %}
+
+{% block choice_widget_expanded %}
+{% spaceless %}
+    <div {{ block('widget_container_attributes') }}>
+    {% for child in form %}
+        <label class="radio inline" for="{{ child.vars.id }}">
+            {{ form_widget(child) }}
+            {{ child.vars.label|trans({}, translation_domain) }}
+        </label>
+    {% endfor %}
+    </div>
+{% endspaceless %}
+{% endblock choice_widget_expanded %}
 
 {% block content %}
 <form action="/select" method="post" class="well form-horizontal">
-    <div class="control-group">
-        <div class="control-label">{{ 'Qui es-tu ?'}}</div>
-        <div class="controls">
-            <select name="selection[user_id]" class="select" id="selection_user_id">
-                <option value=""></option>
-                {% for user in users %}
-                <option value="{{ user.id }}">{{ user }}</option>
-                {% endfor %}
-            </select>
-        </div>
 
-        <label class="control-label">{{ 'Et tu bois quoi ?'}}</label>
+    {{ form_errors(form) }}
+
+    <div class="control-group">
+        <div class="control-label">
+            {{ form_label(form.user_id, 'Qui es-tu ?') }}
+        </div>
         <div class="controls">
-            {% for drink in drinks %}
-            <label class="radio inline" for="{{ 'selection_drink_'~drink }}">
-                <input type="radio" value="{{ drink.id }}" name="selection[drink]" id="{{ 'selection_drink_'~drink }}"/>
-                {{ drink }}
-            </label>
-            {% endfor %}
+            {{ form_widget(form.user_id) }}
         </div>
     </div>
+    <div class="control-group">
+        <label class="control-label">{{ 'Et tu bois quoi ?'}}</label>
+        <div class="controls">
+            {{ form_widget(form.drink_id, { 'attr': { 'class': 'inline' } }) }}
+        </div>
+    </div>
+
+    {{ form_rest(form) }}
+
     <button type="submit" name="selection[payment]" value="now" class="btn btn-primary">Je paye maintenant</button>
     <button type="submit" name="selection[payment]" value="later" class="btn">Je paye plus tard</button>
 </form>

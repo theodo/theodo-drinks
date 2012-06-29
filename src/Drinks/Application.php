@@ -4,9 +4,11 @@ namespace Drinks;
 
 use Silex\Application as BaseApplication;
 use Silex\Provider\TwigServiceProvider;
+use Silex\Provider\FormServiceProvider;
 use Silex\Provider\MonologServiceProvider;
-use Knp\Silex\ServiceProvider\DoctrineMongoDBServiceProvider;
+use Silex\Provider\TranslationServiceProvider;
 use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;
+use Knp\Silex\ServiceProvider\DoctrineMongoDBServiceProvider;
 
 /**
  * Application class.
@@ -17,9 +19,12 @@ class Application extends BaseApplication
 {
     public function configure()
     {
-        $this['root_dir']  = realpath(__DIR__.'/../..');
-        $this['cache_dir'] = $this['root_dir'].'/cache';
-        $this['log_dir']   = $this['root_dir'].'/log';
+        $this['root_dir']   = realpath(__DIR__.'/../..');
+        $this['src_dir']    = realpath(__DIR__);
+        $this['vendor_dir'] = $this['root_dir'].'/vendor';
+        $this['cache_dir']  = $this['root_dir'].'/cache';
+        $this['log_dir']    = $this['root_dir'].'/log';
+        $this['view_dir']   = $this['src_dir'].'/../views';
 
         AnnotationDriver::registerAnnotationClasses();
 
@@ -49,9 +54,9 @@ class Application extends BaseApplication
         $this->register(new TwigServiceProvider(), array(
             'twig.options' => array(
                 'debug' => $this['debug'],
-                'cache' => true,
+                'cache' => $this['cache_dir'],
             ),
-            'twig.path' => __DIR__ . '/../views',
+            'twig.path' => array($this['view_dir']),
         ));
 
         $this['twig'] = $this->share($this->extend('twig', function($twig, $app) {
@@ -59,5 +64,8 @@ class Application extends BaseApplication
 
             return $twig;
         }));
+
+        $this->register(new FormServiceProvider());
+        $this->register(new TranslationServiceProvider(), array('locale_fallback' => 'fr'));
     }
 }

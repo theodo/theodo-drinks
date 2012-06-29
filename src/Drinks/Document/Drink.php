@@ -129,9 +129,17 @@ class Drink
     /**
      * @return String
      */
+    public function getFormatedSalePrice()
+    {
+        return money_format('%(#10n', $this->salePrice / 100);
+    }
+
+    /**
+     * @return String
+     */
     public function __toString()
     {
-        return $this->name;
+        return $this->name.' ('.$this->getFormatedSalePrice().')';
     }
 
     /**
