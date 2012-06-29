@@ -1,0 +1,29 @@
+{% extends layout %}
+
+{% block content %}
+<form action="/select" method="post" class="well form-horizontal">
+    <div class="control-group">
+        <div class="control-label">{{ 'Qui es-tu ?'}}</div>
+        <div class="controls">
+            <select name="selection[user_id]" class="select" id="selection_user_id">
+                <option value=""></option>
+                {% for user in users %}
+                <option value="{{ user.id }}">{{ user }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <label class="control-label">{{ 'Et tu bois quoi ?'}}</label>
+        <div class="controls">
+            {% for drink in drinks %}
+            <label class="radio inline" for="{{ 'selection_drink_'~drink }}">
+                <input type="radio" value="{{ drink.id }}" name="selection[drink]" id="{{ 'selection_drink_'~drink }}"/>
+                {{ drink }}
+            </label>
+            {% endfor %}
+        </div>
+    </div>
+    <button type="submit" name="selection[payment]" value="now" class="btn btn-primary">Je paye maintenant</button>
+    <button type="submit" name="selection[payment]" value="later" class="btn">Je paye plus tard</button>
+</form>
+{% endblock %}

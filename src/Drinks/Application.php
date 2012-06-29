@@ -17,22 +17,18 @@ class Application extends BaseApplication
 {
     public function configure()
     {
-        $app = $this;
+        $this['root_dir']  = realpath(__DIR__.'/../..');
+        $this['cache_dir'] = $this['root_dir'].'/cache';
+        $this['log_dir']   = $this['root_dir'].'/log';
 
-        $app['debug'] = $_SERVER['REMOTE_ADDR'] === '127.0.0.1' || $_SERVER['REMOTE_ADDR'] === '::1';
+        AnnotationDriver::registerAnnotationClasses();
 
-        $app->register(new TwigServiceProvider(), array(
-            'twig.path' => __DIR__ . '/../views',
-        ));
+        $this['debug'] = $_SERVER['REMOTE_ADDR'] === '127.0.0.1' || $_SERVER['REMOTE_ADDR'] === '::1';
 
-        $app->register(new MonologServiceProvider(), array(
-            'monolog.logfile' => __DIR__ . '/../../log/development.log',
-        ));
-
-        $app->register(new DoctrineMongoDBServiceProvider(), array(
+        $this->register(new DoctrineMongoDBServiceProvider(), array(
             'doctrine.odm.mongodb.connection_options' => array(
                 'database' => 'theodo-drinks',
-                'host' => 'localhost',
+                'host' => 'mongodb://localhost',
             ),
             'doctrine.odm.mongodb.documents' => array(
                 array(
@@ -40,9 +36,28 @@ class Application extends BaseApplication
                     'path' => array(__DIR__ . '/Document'),
                     'namespace' => 'Drinks\\Document'
                 )
-            )
+            ),
+            'doctrine.odm.mongodb.proxies_dir'   => $this['cache_dir'],
+            'doctrine.odm.mongodb.hydrators_dir' => $this['cache_dir'],
         ));
 
-        AnnotationDriver::registerAnnotationClasses();
+        $this->register(new MonologServiceProvider(), array(
+            'monolog.logfile' => $this['log_dir'].'/development.log',
+        ));
+
+
+        $this->register(new TwigServiceProvider(), array(
+            'twig.options' => array(
+                'debug' => $this['debug'],
+                'cache' => true,
+            ),
+            'twig.path' => __DIR__ . '/../views',
+        ));
+
+        $this['twig'] = $this->share($this->extend('twig', function($twig, $app) {
+            $twig->addGlobal('layout', 'layout.html.twig');
+
+            return $twig;
+        }));
     }
 }

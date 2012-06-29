@@ -15,7 +15,7 @@ $app->get('/', function () use ($app) {
     $drinks = $manager->getRepository('Drinks\\Document\\Drink')
         ->findAvailables();
 
-    return $app['twig']->render('index.html.twig', array(
+    return $app['twig']->render('select.html.twig', array(
         'users'  => $users,
         'drinks' => $drinks,
     ));
@@ -33,7 +33,7 @@ $app->post('/select', function () use ($app) {
     }
 
     $user = $app['doctrine.odm.mongodb.dm']->getRepository('Drinks\\Document\\User')
-        ->findOneBy(array('name' => $values['user']));
+        ->findOneBy(array('id' => $values['user_id']));
 
     if (false == $user) {
         throw new \InvalidArgumentException("User with name \"{$values['user']}\" not found.");

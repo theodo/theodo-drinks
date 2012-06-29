@@ -30,32 +30,32 @@ class User
     private $balance;
 
     /**
-     * @ODM\ReferenceMany(targetDocument="Drinks\Document\Consumption", mappedBy="user")
+     * @ODM\ReferenceMany(targetDocument="Drinks\Document\Transaction", mappedBy="user")
      */
-    private $consumptions = array();
+    private $transactions = array();
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->consumptions = new ArrayCollection();
+        $this->transactions = new ArrayCollection();
     }
 
     /**
      * @param $consumptions
      */
-    public function setConsumptions($consumptions)
+    public function setTransactions($transactions)
     {
-        $this->consumptions = $consumptions;
+        $this->transactions = $transactions;
     }
 
     /**
      * @return array|\Doctrine\Common\Collections\ArrayCollection
      */
-    public function getConsumptions()
+    public function getTransactions()
     {
-        return $this->consumptions;
+        return $this->transactions;
     }
 
     /**
