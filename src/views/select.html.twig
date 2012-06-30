@@ -16,7 +16,7 @@
 {% endblock choice_widget_expanded %}
 
 {% block content %}
-<form action="/select" method="post" class="well form-horizontal">
+<form action="{{ path('drink') }}" method="post" class="well form-horizontal">
 
     {{ form_errors(form) }}
 

@@ -8,6 +8,7 @@ use Silex\Provider\FormServiceProvider;
 use Silex\Provider\MonologServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
+use Silex\Provider\UrlGeneratorServiceProvider;
 use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;
 use Knp\Silex\ServiceProvider\DoctrineMongoDBServiceProvider;
 use Drinks\TransactionFactory;
@@ -67,6 +68,7 @@ class Application extends BaseApplication
             return $twig;
         }));
 
+        $this->register(new UrlGeneratorServiceProvider());
         $this->register(new FormServiceProvider());
         $this->register(new ValidatorServiceProvider());
         $this->register(new TranslationServiceProvider(), array('locale_fallback' => 'fr'));

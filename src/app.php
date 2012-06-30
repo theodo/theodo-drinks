@@ -8,7 +8,7 @@ $app['loader'] = $loader;
 
 use Symfony\Component\HttpFoundation\Request;
 
-$app->match('/select', function (Request $request) use ($app) {
+$app->match('/have-a-drink', function (Request $request) use ($app) {
     $manager = $app['doctrine.odm.mongodb.dm'];
 
     $users = $manager->getRepository('Drinks\\Document\\User')
