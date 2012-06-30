@@ -131,6 +131,7 @@ class Drink
      */
     public function getFormatedSalePrice()
     {
+        setlocale(LC_MONETARY, 'fr_FR');
         return money_format('%(#10n', $this->salePrice / 100);
     }
 

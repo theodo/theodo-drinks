@@ -121,4 +121,9 @@ class User
     {
         $this->balance += $amount;
     }
+
+    public function getFormattedBalance()
+    {
+        return $this->getBalance() / 100;
+    }
 }

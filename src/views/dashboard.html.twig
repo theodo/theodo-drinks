@@ -2,22 +2,27 @@
 
 {% block content %}
 <div class="row">
-  <div class="span6">
-    <ul>
-        {% for user in users %}
-        <li>{{ user }}</li>
+    <div class="span12">
+        <p>{{ user }}</p>
+        <p>{{ 'Solde : '~user.formattedBalance~'€' }}</p>
+        <p>{{ 'Voici tes transactions :' }}</p>
+        {% for transaction in transactions %}
+        <li>
+            {{ transaction }}
+            {% if transaction.type == 'credit' %}
+                <span class="badge badge-success">{{ transaction.type }}</span>
+            {% else %}
+                <a href="{{ path('drink_pay', { 'id': transaction.id }) }}" class="btn btn-success">{{ 'Payer.' }}</a>
+            {% endif %}
+        </li>
         {% else %}
-        <li>{{ 'No user found.' }}</li>
+        <li>{{ 'Tu n\'a pas encore bu.' }}</li>
         {% endfor %}
-    </ul>
-
-  </div>
-  <div class="span6">
-      {% for drink in drinks %}
-      <li>{{ drink }}</li>
-      {% else %}
-      <li>{{ 'No drink found.' }}</li>
-      {% endfor %}
-  </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span12">
+        <a href="{{ path('drink_select') }}" class="btn btn-large btn-primary">{{ 'Prendre une cannette.' }}</a>
+    </div>
 </div>
 {% endblock %}

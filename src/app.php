@@ -56,7 +56,7 @@ $app->match('/have-a-drink', function (Request $request) use ($app) {
 
             $manager->flush();
 
-            return $app->redirect('/dashboard');
+            return $app->redirect($app['url_generator']->generate('dashboard', array('name' => $user->getName())));
         }
     }
 
@@ -64,23 +64,41 @@ $app->match('/have-a-drink', function (Request $request) use ($app) {
         'form' => $form->createView(),
     ));
 })
-->bind('drink')
+->bind('drink_select')
 ->method('GET|POST');
 
-$app->get('/dashboard', function () use ($app) {
+$app->get('/dashboard/{name}', function ($name) use ($app) {
     $manager = $app['doctrine.odm.mongodb.dm'];
 
-    $users = $manager->getRepository('Drinks\\Document\\User')
-        ->findAll();
+    $user = $manager->getRepository('Drinks\\Document\\User')
+        ->findOneBy(array('name' => $name));
 
-    $drinks = $manager->getRepository('Drinks\\Document\\Drink')
-        ->findAll();
+    $transactions = $manager->getRepository('Drinks\\Document\\Transaction')
+        ->findByUser($user);
 
     return $app['twig']->render('dashboard.html.twig', array(
-        'users'  => $users,
-        'drinks' => $drinks
+        'user'  => $user,
+        'transactions' => $transactions
     ));
 })
 ->bind('dashboard');
+
+$app->get('/pay/{id}', function ($id) use ($app) {
+    $manager = $app['doctrine.odm.mongodb.dm'];
+
+    $transaction = $manager->getRepository('Drinks\\Document\\Transaction')
+        ->findBy(array('id' => $id));
+
+    $user  = $transaction->getUser();
+    $drink = $transaction->getDrink();
+
+    $credit = $app['transaction.factory']->createCredit($user, $drink);
+    $manager->persist($credit);
+    $manager->flush();
+
+    return $app->redirect($app['url_generator']->generate('dashboard', array('name' => $user->getName())));
+})
+->convert('id', function ($id) { return (int) $id; })
+->bind('drink_pay');
 
 return $app;

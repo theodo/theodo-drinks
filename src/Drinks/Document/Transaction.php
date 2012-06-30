@@ -141,4 +141,9 @@ class Transaction
     {
         return $this->amount;
     }
+
+    public function __toString()
+    {
+        return $this->getLabel();
+    }
 }

@@ -53,7 +53,6 @@ class Application extends BaseApplication
             'monolog.logfile' => $this['log_dir'].'/development.log',
         ));
 
-
         $this->register(new TwigServiceProvider(), array(
             'twig.options' => array(
                 'debug' => $this['debug'],
