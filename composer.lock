@@ -1,5 +1,5 @@
 {
-    "hash": "7f700f6fc869c169900f056761f16521",
+    "hash": "733a17c39a3fb7d8abebfe37f51b0bdb",
     "packages": [
         {
             "package": "docteurklein/silex-doctrine-service-providers",
@@ -158,14 +158,20 @@
         {
             "package": "symfony/twig-bridge",
             "version": "dev-master",
+            "source-reference": "v2.1.0-BETA1",
+            "commit-date": "1339357889"
+        },
+        {
+            "package": "symfony/validator",
+            "version": "dev-master",
             "alias-pretty-version": "2.1.x-dev",
             "alias-version": "2.1.9999999.9999999-dev"
         },
         {
-            "package": "symfony/twig-bridge",
+            "package": "symfony/validator",
             "version": "dev-master",
-            "source-reference": "v2.1.0-BETA1",
-            "commit-date": "1339357889"
+            "source-reference": "c9dea6774d68a56e2652282afcc39adbed22cd8e",
+            "commit-date": "1340707414"
         },
         {
             "package": "symfony/yaml",
@@ -199,6 +205,7 @@
         "symfony/form": 20,
         "symfony/config": 20,
         "symfony/translation": 20,
+        "symfony/validator": 20,
         "symfony/locale": 20,
         "symfony/twig-bridge": 20
     }

@@ -6,9 +6,11 @@ use Silex\Application as BaseApplication;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\FormServiceProvider;
 use Silex\Provider\MonologServiceProvider;
+use Silex\Provider\ValidatorServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;
 use Knp\Silex\ServiceProvider\DoctrineMongoDBServiceProvider;
+use Drinks\TransactionFactory;
 
 /**
  * Application class.
@@ -66,6 +68,11 @@ class Application extends BaseApplication
         }));
 
         $this->register(new FormServiceProvider());
+        $this->register(new ValidatorServiceProvider());
         $this->register(new TranslationServiceProvider(), array('locale_fallback' => 'fr'));
+
+        $this['transaction.factory'] = $this->share(function () {
+            return new TransactionFactory();
+        });
     }
 }

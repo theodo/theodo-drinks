@@ -105,4 +105,20 @@ class User
     {
         return $this->balance;
     }
+
+    /**
+     * @param Integer $amount
+     */
+    public function debite($amount)
+    {
+        $this->balance -= $amount;
+    }
+
+    /**
+     * @param Integer $amount
+     */
+    public function credite($amount)
+    {
+        $this->balance += $amount;
+    }
 }

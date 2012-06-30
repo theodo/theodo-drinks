@@ -6,7 +6,9 @@ $app = new Drinks\Application();
 $app->configure();
 $app['loader'] = $loader;
 
-$app->get('/', function () use ($app) {
+use Symfony\Component\HttpFoundation\Request;
+
+$app->match('/select', function (Request $request) use ($app) {
     $manager = $app['doctrine.odm.mongodb.dm'];
 
     $users = $manager->getRepository('Drinks\\Document\\User')
@@ -25,41 +27,45 @@ $app->get('/', function () use ($app) {
         $drinkChoices[$drink->getId()] = (string) $drink;
     }
 
-    $form = $app['form.factory']->createBuilder('form', array())
-        ->add('user_id', 'choice', array('choices' => $userChoices))
-        ->add('drink_id', 'choice', array('choices' => $drinkChoices, 'expanded' => true))
-        ->getForm();
+    $form = $app['form.factory']->create(new \Drinks\Form\Type\DrinkSelectionType(), array(
+        'userChoices'  => $userChoices,
+        'drinkChoices' => $drinkChoices
+    ));
 
+    if ($request->isMethod('post')) {
+        $form->bindRequest($request);
+
+        if ($form->isValid()) {
+            $data = $form->getData();
+            $drink = $app['doctrine.odm.mongodb.dm']->getRepository('Drinks\\Document\\Drink')
+                ->findOneBy(array('id' => $data['drink_id']));
+
+            $user = $app['doctrine.odm.mongodb.dm']->getRepository('Drinks\\Document\\User')
+                ->findOneBy(array('id' => $data['user_id']));
+
+            if ('now' == $data['payment']) {
+                list($credit, $debit) = $app['transaction.factory']->createCompleteTransaction($user, $drink);
+
+                $manager->persist($credit);
+                $manager->persist($debit);
+            } else {
+                $debit = $app['transaction.factory']->createDebit($user, $drink);
+
+                $manager->persist($debit);
+            }
+
+            $manager->flush();
+
+            return $app->redirect('/dashboard');
+        }
+    }
 
     return $app['twig']->render('select.html.twig', array(
         'form' => $form->createView(),
     ));
 })
-->bind('homepage');
-
-$app->post('/select', function () use ($app) {
-    $values = $app['request']->request->get('selection');
-
-    $drink = $app['doctrine.odm.mongodb.dm']->getRepository('Drinks\\Document\\Drink')
-        ->findOneBy(array('name' => $values['drink']));
-
-    if (false == $drink) {
-        throw new \InvalidArgumentException("Drink with name \"{$values['drink']}\" not found.");
-    }
-
-    $user = $app['doctrine.odm.mongodb.dm']->getRepository('Drinks\\Document\\User')
-        ->findOneBy(array('id' => $values['user_id']));
-
-    if (false == $user) {
-        throw new \InvalidArgumentException("User with name \"{$values['user']}\" not found.");
-    }
-
-    $transaction = new \Drinks\Document\Transaction();
-    $transaction->setType(\Drinks\Document\Transaction::DEBIT);
-    $transaction->setLabel((string) $drink);
-    $transaction->setUser($user);
-
-});
+->bind('drink')
+->method('GET|POST');
 
 $app->get('/dashboard', function () use ($app) {
     $manager = $app['doctrine.odm.mongodb.dm'];

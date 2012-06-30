@@ -38,21 +38,32 @@ class Transaction
     private $type;
 
     /**
-     * @ODM/String
+     * @ODM\String
      */
     private $label;
 
     /**
-     * @ODM/Date
+     * @ODM\Int
+     */
+    private $amount;
+
+    /**
+     * @ODM\Date
      */
     private $date;
 
     /**
-     * @PrePersist
+     * @ODM\PrePersist
      */
     public function prePersist()
     {
         $this->date = new \MongoDate();
+
+        if (self::CREDIT == $this->getType()) {
+            $this->user->credite($this->amount);
+        } else {
+            $this->user->debite($this->amount);
+        }
     }
 
     /**
@@ -113,5 +124,21 @@ class Transaction
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * @param Integer $amount
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+    }
+
+    /**
+     * @return Integer
+     */
+    public function getAmount()
+    {
+        return $this->amount;
     }
 }
