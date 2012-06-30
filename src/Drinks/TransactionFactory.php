@@ -5,6 +5,7 @@ namespace Drinks;
 use Drinks\Document\Transaction;
 use Drinks\Document\Drink;
 use Drinks\Document\User;
+use Symfony\Component\Translation\Translator;
 
 /**
  * TransactionFactory class.
@@ -13,6 +14,12 @@ use Drinks\Document\User;
  */
 class TransactionFactory
 {
+    protected $transalator;
+
+    public function __construct(Translator $translator)
+    {
+        $this->transalator = $translator;
+    }
     /**
      * @param User $user
      * @param Drink|null $drink
@@ -68,5 +75,19 @@ class TransactionFactory
         $debit  = $this->createDebit($user, $drink);
 
         return array($credit, $debit);
+    }
+
+    /**
+     * @param User $user
+     * @param $amount
+     * @return Document\Transaction
+     */
+    public function createRepayment(User $user, $amount)
+    {
+        $credit = $this->createCredit($user);
+        $credit->setAmount($amount);
+        $credit->setLabel($this->translator->trans('Repayment'));
+
+        return $credit;
     }
 }

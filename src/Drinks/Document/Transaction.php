@@ -137,13 +137,25 @@ class Transaction
     /**
      * @return Integer
      */
-    public function getAmount()
+    public function getAmount($formatted = false)
     {
+        if (true == $formatted) {
+            return $this->amount / 100;
+        }
+
         return $this->amount;
+    }
+
+    /**
+     * @return MongoDate
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 
     public function __toString()
     {
-        return $this->getLabel();
+        return (string) $this->getLabel();
     }
 }

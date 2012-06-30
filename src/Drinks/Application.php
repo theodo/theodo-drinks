@@ -72,8 +72,9 @@ class Application extends BaseApplication
         $this->register(new ValidatorServiceProvider());
         $this->register(new TranslationServiceProvider(), array('locale_fallback' => 'fr'));
 
-        $this['transaction.factory'] = $this->share(function () {
-            return new TransactionFactory();
+        $app = $this;
+        $this['transaction.factory'] = $this->share(function () use ($app) {
+            return new TransactionFactory($app['translator']);
         });
     }
 }

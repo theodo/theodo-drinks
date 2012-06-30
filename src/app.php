@@ -6,7 +6,14 @@ $app = new Drinks\Application();
 $app->configure();
 $app['loader'] = $loader;
 
+$app->mount('/user', new Drinks\Provider\UserAccountProvider());
+
 use Symfony\Component\HttpFoundation\Request;
+
+$app->get('/', function () use ($app) {
+    return $app->redirect($app['url_generator']->generate('drink_select'));
+})
+->bind('homepage');
 
 $app->match('/have-a-drink', function (Request $request) use ($app) {
     $manager = $app['doctrine.odm.mongodb.dm'];
@@ -56,7 +63,7 @@ $app->match('/have-a-drink', function (Request $request) use ($app) {
 
             $manager->flush();
 
-            return $app->redirect($app['url_generator']->generate('dashboard', array('name' => $user->getName())));
+            return $app->redirect($app['url_generator']->generate('user_transactions'));
         }
     }
 
@@ -66,39 +73,5 @@ $app->match('/have-a-drink', function (Request $request) use ($app) {
 })
 ->bind('drink_select')
 ->method('GET|POST');
-
-$app->get('/dashboard/{name}', function ($name) use ($app) {
-    $manager = $app['doctrine.odm.mongodb.dm'];
-
-    $user = $manager->getRepository('Drinks\\Document\\User')
-        ->findOneBy(array('name' => $name));
-
-    $transactions = $manager->getRepository('Drinks\\Document\\Transaction')
-        ->findByUser($user);
-
-    return $app['twig']->render('dashboard.html.twig', array(
-        'user'  => $user,
-        'transactions' => $transactions
-    ));
-})
-->bind('dashboard');
-
-$app->get('/pay/{id}', function ($id) use ($app) {
-    $manager = $app['doctrine.odm.mongodb.dm'];
-
-    $transaction = $manager->getRepository('Drinks\\Document\\Transaction')
-        ->findBy(array('id' => $id));
-
-    $user  = $transaction->getUser();
-    $drink = $transaction->getDrink();
-
-    $credit = $app['transaction.factory']->createCredit($user, $drink);
-    $manager->persist($credit);
-    $manager->flush();
-
-    return $app->redirect($app['url_generator']->generate('dashboard', array('name' => $user->getName())));
-})
-->convert('id', function ($id) { return (int) $id; })
-->bind('drink_pay');
 
 return $app;

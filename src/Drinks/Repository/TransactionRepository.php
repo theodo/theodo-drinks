@@ -16,6 +16,7 @@ class TransactionRepository extends DocumentRepository
     {
         $query = $this->createQueryBuilder()
             ->field('user.$id')->equals(new \MongoId($user->getId()))
+            ->sort('date', 'desc')
             ->getQuery();
 
         return $query->execute();
