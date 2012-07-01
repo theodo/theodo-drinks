@@ -18,7 +18,8 @@
         "symfony/translation":                           "dev-master",
         "symfony/validator":                             "dev-master",
         "symfony/locale":                                "dev-master",
-        "symfony/twig-bridge":                           "dev-master"
+        "symfony/twig-bridge":                           "dev-master",
+        "symfony/security":                              "dev-master"
     },
     "autoload":    {
         "psr-0": {

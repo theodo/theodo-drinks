@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @author Benjamin Grandfond <benjamin.grandfond@gmail.com>
  */
-class UserAccountProvider  implements ControllerProviderInterface
+class UserControllerProvider  implements ControllerProviderInterface
 {
     /**
      * @var Application

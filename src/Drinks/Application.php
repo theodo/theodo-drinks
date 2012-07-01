@@ -6,12 +6,17 @@ use Silex\Application as BaseApplication;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\FormServiceProvider;
 use Silex\Provider\MonologServiceProvider;
+use Silex\Provider\SecurityServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\UrlGeneratorServiceProvider;
 use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;
 use Knp\Silex\ServiceProvider\DoctrineMongoDBServiceProvider;
-use Drinks\TransactionFactory;
+use Drinks\Factory\TransactionFactory;
+use Drinks\Security\Provider\UserProvider;
+
+// Controller providers usage.
+use Drinks\Provider\UserControllerProvider;
 
 /**
  * Application class.
@@ -76,5 +81,36 @@ class Application extends BaseApplication
         $this['transaction.factory'] = $this->share(function () use ($app) {
             return new TransactionFactory($app['translator']);
         });
+
+        $this->configureSecurity();
+
+        $this->mountControllerProviders();
+    }
+
+    /**
+     * Configure the security.
+     */
+    public function configureSecurity()
+    {
+        $app = $this;
+
+        $this->register(new SecurityServiceProvider());
+        $this['security.firewalls'] = array(
+            'front' => array(
+                'pattern' => '^/',
+                'http' => true,
+                'users'=> $this->share(function () use ($app) {
+                    return new UserProvider($app['doctrine.odm.mongodb.dm'], 'Drinks\\Document\\User');
+                }),
+            ),
+        );
+    }
+
+    /**
+     * Mount controller providers of Theodo Drinks application.
+     */
+    public function mountControllerProviders()
+    {
+        $this->mount('/user', new UserControllerProvider());
     }
 }

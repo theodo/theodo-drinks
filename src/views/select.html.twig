@@ -21,15 +21,7 @@
     {{ form_errors(form) }}
 
     <div class="control-group">
-        <div class="control-label">
-            {{ form_label(form.user_id, 'Qui es-tu ?') }}
-        </div>
-        <div class="controls">
-            {{ form_widget(form.user_id) }}
-        </div>
-    </div>
-    <div class="control-group">
-        <label class="control-label">{{ 'Et tu bois quoi ?'}}</label>
+        <label class="control-label">{{ 'Sélectionne ta boisson'}}</label>
         <div class="controls">
             {{ form_widget(form.drink_id, { 'attr': { 'class': 'inline' } }) }}
         </div>

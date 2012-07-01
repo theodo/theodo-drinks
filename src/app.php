@@ -6,8 +6,6 @@ $app = new Drinks\Application();
 $app->configure();
 $app['loader'] = $loader;
 
-$app->mount('/user', new Drinks\Provider\UserAccountProvider());
-
 use Symfony\Component\HttpFoundation\Request;
 
 $app->get('/', function () use ($app) {
@@ -18,25 +16,18 @@ $app->get('/', function () use ($app) {
 $app->match('/have-a-drink', function (Request $request) use ($app) {
     $manager = $app['doctrine.odm.mongodb.dm'];
 
-    $users = $manager->getRepository('Drinks\\Document\\User')
-        ->findAll();
+    $user = $app['security']->getToken()->getUser();
 
     $drinks = $manager->getRepository('Drinks\\Document\\Drink')
         ->findAvailables();
-
-    $userChoices = array();
-    foreach ($users as $user) {
-        $userChoices[$user->getId()] = (string) $user;
-    };
 
     $drinkChoices = array();
     foreach ($drinks as $drink) {
         $drinkChoices[$drink->getId()] = (string) $drink;
     }
 
-    $form = $app['form.factory']->create(new \Drinks\Form\Type\DrinkSelectionType(), array(
-        'userChoices'  => $userChoices,
-        'drinkChoices' => $drinkChoices
+    $form = $app['form.factory']->create(new \Drinks\Form\Type\DrinkSelectionType(), array('user_id' => $user->getId()), array(
+        'drink_choices' => $drinkChoices,
     ));
 
     if ($request->isMethod('post')) {

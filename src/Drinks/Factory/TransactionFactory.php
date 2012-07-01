@@ -1,6 +1,6 @@
 <?php
 
-namespace Drinks;
+namespace Drinks\Factory;
 
 use Drinks\Document\Transaction;
 use Drinks\Document\Drink;

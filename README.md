@@ -13,3 +13,8 @@ Theodo drinks manage the team drinks.
 
     # Load drinks
     computer:~ user $ mongoimport -d theodo-drinks -c Drink data/drink.json --jsonArray
+
+## Troubles
+
+Why the added columns are not hydrated?
+-> That's because the hydrator has to be refresh. Remove the hydrator file corresponding to the document and it should be fine then.
