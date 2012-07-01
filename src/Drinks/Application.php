@@ -19,6 +19,7 @@ use Drinks\Security\Provider\UserProvider;
 // Controller providers usage.
 use Drinks\Provider\UserControllerProvider;
 use Drinks\Provider\DrinkControllerProvider;
+use Drinks\Provider\RestockingControllerProvider;
 
 /**
  * Application class.
@@ -118,5 +119,6 @@ class Application extends BaseApplication
     {
         $this->mount('/user', new UserControllerProvider());
         $this->mount('/drink', new DrinkControllerProvider());
+        $this->mount('/restocking', new RestockingControllerProvider());
     }
 }
