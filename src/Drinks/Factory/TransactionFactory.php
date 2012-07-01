@@ -14,11 +14,11 @@ use Symfony\Component\Translation\Translator;
  */
 class TransactionFactory
 {
-    protected $transalator;
+    protected $translator;
 
     public function __construct(Translator $translator)
     {
-        $this->transalator = $translator;
+        $this->translator = $translator;
     }
     /**
      * @param User $user
