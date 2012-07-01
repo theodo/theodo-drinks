@@ -61,6 +61,10 @@ class TransactionFactory
         $debit = $this->create($user, $drink);
         $debit->setType(\Drinks\Document\Transaction::DEBIT);
 
+        if ($drink instanceof Drink) {
+            $drink->updateQuantity();
+        }
+
         return $debit;
     }
 

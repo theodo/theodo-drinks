@@ -129,7 +129,7 @@ class Drink
     /**
      * @return String
      */
-    public function getFormatedSalePrice()
+    public function getFormattedSalePrice()
     {
         setlocale(LC_MONETARY, 'fr_FR');
         return money_format('%(#10n', $this->salePrice / 100);
@@ -138,9 +138,18 @@ class Drink
     /**
      * @return String
      */
+    public function getFormattedPurchasePrice()
+    {
+        setlocale(LC_MONETARY, 'fr_FR');
+        return money_format('%(#10n', $this->purchasePrice / 100);
+    }
+
+    /**
+     * @return String
+     */
     public function __toString()
     {
-        return $this->name.' ('.$this->getFormatedSalePrice().')';
+        return $this->name.' ('.$this->getFormattedSalePrice().')';
     }
 
     /**
@@ -149,5 +158,10 @@ class Drink
     public function getId()
     {
         return $this->id;
+    }
+
+    public function updateQuantity()
+    {
+        $this->quantity--;
     }
 }
