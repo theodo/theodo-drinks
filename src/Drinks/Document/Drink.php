@@ -3,7 +3,6 @@
 namespace Drinks\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Drinks\Document\Consumption;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
