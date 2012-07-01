@@ -59,7 +59,7 @@ class RestockingControllerProvider  implements ControllerProviderInterface
                     $dm->persist($restocking);
                     $dm->flush();
 
-                    return $app->redirect($app['url_generator']->generate('drink_stocks'));
+                    return $app->redirect($app['url_generator']->generate('restocking_index'));
                 }
             }
 
