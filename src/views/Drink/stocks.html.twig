@@ -11,16 +11,17 @@
                 <th>Nom</th>
                 <th>Prix de vente</th>
                 <th>Prix d'achat (en pack)</th>
-                <th>Stock</th>
             </tr>
             </thead>
             <tbody>
             {% for drink in drinks %}
             <tr>
-                <td>{{ drink.name }}</td>
+                <td>
+                    {{ drink.name }}
+                    <span class="badge badge-{% if drink.quantity <= 0 %}important{% elseif drink.quantity <= 2%}warning{% else %}success{% endif %}">{{ drink.quantity }}</span>
+                </td>
                 <td>{{ drink.formattedSalePrice }}</td>
                 <td>{{ drink.formattedPurchasePrice }}</td>
-                <td>{{ drink.quantity }}</td>
             </tr>
             {% else %}
             <tr>
