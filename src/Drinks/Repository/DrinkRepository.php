@@ -23,4 +23,19 @@ class DrinkRepository extends DocumentRepository
             ->getQuery()
             ->execute();
     }
+
+    /**
+     * Find drinks by ids.
+     *
+     * @param array $ids
+     * @return bool|\Doctrine\MongoDB\ArrayIterator|\Doctrine\MongoDB\Cursor|\Doctrine\MongoDB\EagerCursor|mixed|null
+     */
+    public function findByIds(array $ids)
+    {
+        return $this->createQueryBuilder()
+            ->field('_id')->in($ids)
+            ->getQuery()
+            ->execute();
+    }
+
 }

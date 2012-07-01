@@ -4,7 +4,6 @@ $loader = require_once __DIR__ . '/../vendor/autoload.php';
 
 $app = new Drinks\Application();
 $app->configure();
-$app['loader'] = $loader;
 
 use Symfony\Component\HttpFoundation\Request;
 

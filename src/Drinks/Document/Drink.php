@@ -159,8 +159,8 @@ class Drink
         return $this->id;
     }
 
-    public function updateQuantity()
+    public function updateQuantity($value = -1)
     {
-        $this->quantity--;
+        $this->quantity += $value;
     }
 }

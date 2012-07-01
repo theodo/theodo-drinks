@@ -1,0 +1,25 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+<div class="row-fluid">
+    <div class="span12">
+        <h3>Reassort</h3>
+
+        <form action="{{ path('drink_restocking') }}" method="post">
+            {{ form_row(form) }}
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Sauvegarder</button>
+                <button type="reset" class="btn">Annuler</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block javascript %}
+    {{ parent() }}
+    <script type="text/javascript" charset="utf-8" src="/js/drink/restocking.js"></script>
+{% endblock %}

@@ -13,6 +13,7 @@ use Silex\Provider\UrlGeneratorServiceProvider;
 use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;
 use Knp\Silex\ServiceProvider\DoctrineMongoDBServiceProvider;
 use Drinks\Factory\TransactionFactory;
+use Drinks\Factory\RestockingFactory;
 use Drinks\Security\Provider\UserProvider;
 
 // Controller providers usage.
@@ -81,6 +82,9 @@ class Application extends BaseApplication
         $app = $this;
         $this['transaction.factory'] = $this->share(function () use ($app) {
             return new TransactionFactory($app['translator']);
+        });
+        $this['restocking.factory'] = $this->share(function () use ($app) {
+            return new RestockingFactory($app['doctrine.odm.mongodb.dm']);
         });
 
         $this->configureSecurity();
