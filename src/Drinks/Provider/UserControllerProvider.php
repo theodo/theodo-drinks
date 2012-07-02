@@ -112,7 +112,7 @@ class UserControllerProvider  implements ControllerProviderInterface
     public function findUser()
     {
         $user = $this->app['doctrine.odm.mongodb.dm']->getRepository('Drinks\\Document\\User')
-            ->findOneBy(array('name' => 'benjaming'));
+            ->findOneBy(array('name' => (string) $this->app['security']->getToken()->getUser()));
 
         $this->app['user'] = $user;
     }
