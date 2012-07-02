@@ -69,9 +69,7 @@ class UserControllerProvider  implements ControllerProviderInterface
                 $data = $form->getData();
 
                 $manager = $app['doctrine.odm.mongodb.dm'];
-
-                $user = $manager->getRepository('Drinks\\Document\\User')
-                    ->findOneBy(array('name' => 'benjaming'));
+                $user    = $app['user'];
 
                 $credit = $app['transaction.factory']->createRepayment($user, $data['amount'] * 100);
                 $manager->persist($credit);
