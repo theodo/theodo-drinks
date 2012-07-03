@@ -24,7 +24,9 @@ $(function () {
 
         // Replace '$$name$$' in the prototype's HTML to
         // instead be a number based on the current collection's length.
-        var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
+        var number = collectionHolder.children().length;
+        var newForm = prototype.replace(/__name__label__/g, number);
+        newForm = newForm.replace(/__name__/g, number);
 
         // Display the form in the page in an li, before the "Add a line" link li
         var $newFormLi = $('<li></li>').append(newForm);
