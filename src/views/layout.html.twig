@@ -28,9 +28,12 @@
                     <a class="brand" href="#">Theodo Drinks</a>
                 </li>
                 <li class="divider-vertical"></li>
+                {% if app.security.token is not null %}
                 <li><a href="{{ path('drink_select') }}" class="btn btn-primary">{{ 'Prendre une cannette.' }}</a></li>
                 <li><a href="{{ path('restocking_index') }}">{{ 'Stock de cannettes' }}</a></li>
+                {% endif %}
             </ul>
+            {% if app.security.token is not null %}
             <ul class="nav pull-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -40,9 +43,11 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{ path('user_balance') }}">{{ 'Mon solde' }}</a></li>
                         <li><a href="{{ path('user_transactions') }}">{{ 'Mes transactions' }}</a></li>
+                        <li><a href="{{ path('user_password') }}">{{ 'Mon mot de passe' }}</a></li>
                     </ul>
                 </li>
             </ul>
+            {% endif %}
         </div>
     </div>
 </div>

@@ -102,9 +102,12 @@ class Application extends BaseApplication
 
         $this->register(new SecurityServiceProvider());
         $this['security.firewalls'] = array(
+            'login' => array(
+                'pattern' => '^/user/login$',
+            ),
             'front' => array(
                 'pattern' => '^/',
-                'http' => true,
+                'form' => array('login_path' => '/user/login', 'check_path' => '/login_check'),
                 'users'=> $this->share(function () use ($app) {
                     return new UserProvider($app['doctrine.odm.mongodb.dm'], 'Drinks\\Document\\User');
                 }),

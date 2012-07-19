@@ -1,0 +1,28 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+<div class="row-fluid">
+    <div class="span6">
+        <h3>{{ 'Connexion' }}</h3>
+
+        <form action="{{ path('login_check') }}" method="post" class="well form-horizontal">
+            {{ error }}
+            <div class="control-group">
+                <label class="control-label" for="username">Username<label/>
+                    <div class="controls">
+                    <input type="text" name="_username" id="username" value="{{ last_username }}" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="password">Mot de passe<label/>
+                    <div class="controls">
+                    <input type="password" name="_password" id="password" value="" />
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

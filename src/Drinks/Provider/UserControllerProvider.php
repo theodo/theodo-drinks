@@ -101,6 +101,47 @@ class UserControllerProvider  implements ControllerProviderInterface
         ->bind('user_repay_all')
         ->before(array($this, 'findUser'));
 
+        $controllers->match('/password', function (Request $request) use ($app) {
+            $user    = $app['user'];
+
+            $form = $app['form.factory']->create(new \Drinks\Form\Type\UserPasswordType(), array('id' => $user->getId()));
+
+            if ($request->isMethod('post')) {
+                $form->bindRequest($request);
+                if ($form->isValid()) {
+                    $data = $form->getData();
+
+                    $manager = $app['doctrine.odm.mongodb.dm'];
+
+                    $pass = $data['password'];
+                    $encoder = $app['security.encoder_factory']->getEncoder($user);
+                    $password = $encoder->encodePassword($pass, $user->getSalt());
+                    $user->setPassword($password);
+
+                    $manager->persist($user);
+                    $manager->flush();
+
+                    return $app->redirect($app['url_generator']->generate('user_password'));
+                }
+            }
+
+            return $app['twig']->render('User/password.html.twig', array(
+                'user' => $user,
+                'form' => $form->createView()
+            ));
+        })
+        ->bind('user_password')
+        ->method('GET|POST')
+        ->before(array($this, 'findUser'));
+
+        $controllers->get('/login', function(Request $request) use ($app) {
+            return $app['twig']->render('User/login.html.twig', array(
+                'error'         => $app['security.last_error']($request),
+                'last_username' => $app['session']->get('_security.last_username'),
+            ));
+        })
+        ->bind('user_login');
+
         return $controllers;
     }
 

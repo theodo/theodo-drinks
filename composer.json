@@ -8,6 +8,12 @@
             "homepage": "http://theodo.fr"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/benja-M-1/SilexServiceProviders.git"
+        }
+    ],
     "require":     {
         "silex/silex":                                   "dev-master",
         "docteurklein/silex-doctrine-service-providers": "dev-master",
@@ -25,5 +31,6 @@
         "psr-0": {
             "Drinks": "src/"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
