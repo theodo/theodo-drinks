@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+
+    <title>Theodo Drinks</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <style type="text/css">
+        body {
+            padding-top: 90px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <ul class="nav">
+                <li>
+                    <a class="brand" href="#">Theodo Drinks</a>
+                </li>
+                <li class="divider-vertical"></li>
+                <li><a href="{{ path('drink_select') }}" class="btn btn-primary">{{ 'Prendre une cannette.' }}</a></li>
+                <li><a href="{{ path('restocking_index') }}">{{ 'Stock de cannettes' }}</a></li>
+            </ul>
+            <ul class="nav pull-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Salut <strong>{{ app.security.token.user }}</strong>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('user_balance') }}">{{ 'Mon solde' }}</a></li>
+                        <li><a href="{{ path('user_transactions') }}">{{ 'Mes transactions' }}</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+{% block javascript %}
+    <script type="text/javascript" charset="utf-8" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/js/main.js"></script>
+{% endblock %}
+
+</body>
+</html>
