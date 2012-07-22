@@ -2,24 +2,33 @@
 
 {% block content %}
 <div class="row-fluid">
-    <div class="span6">
+    <div id="login-box" class="span6">
         <h3>{{ 'Connexion' }}</h3>
 
         <form action="{{ path('login_check') }}" method="post" class="well form-horizontal">
             {{ error }}
             <div class="control-group">
-                <label class="control-label" for="username">Username<label/>
-                    <div class="controls">
-                    <input type="text" name="_username" id="username" value="{{ last_username }}" />
+                <label class="control-label" for="username">Username</label>
+
+                <div class="controls">
+                    <input type="text" name="_username" id="username" value="{{ last_username }}"/>
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="password">Mot de passe<label/>
-                    <div class="controls">
-                    <input type="password" name="_password" id="password" value="" />
+                <label class="control-label" for="password">Mot de passe</label>
+
+                <div class="controls">
+                    <input type="password" name="_password" id="password" value=""/>
                 </div>
             </div>
-
+            <div class="control-group">
+                <label class="control-label" for="remember">Se souvenir de moi</label>
+                <div class="controls">
+                    <label class="checkbox">
+                        <input type="checkbox" name="_remember" id="remember" value=""/>
+                    </label>
+                </div>
+            </div>
             <button type="submit" class="btn btn-primary">Enregistrer</button>
         </form>
 
