@@ -63,6 +63,7 @@ class Transaction
             $this->user->credite($this->amount);
         } else {
             $this->user->debite($this->amount);
+            $this->user->addDrink();
         }
     }
 

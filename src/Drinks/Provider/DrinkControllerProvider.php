@@ -84,6 +84,18 @@ class DrinkControllerProvider  implements ControllerProviderInterface
         ->bind('drink_select')
         ->method('GET|POST');
 
+        $controllers->match('/leaderboard', function () use ($app) {
+            $users = $app['doctrine.odm.mongodb.dm']
+                ->getRepository('Drinks\\Document\\User')
+                ->findBy(array(), array('drinks' => 'desc'));
+
+            return $app['twig']->render('Drink/leaderboard.html.twig', array(
+                'users' => $users
+            ));
+        })
+        ->bind('drink_leaderboard')
+        ->method('GET');
+
         return $controllers;
     }
 }

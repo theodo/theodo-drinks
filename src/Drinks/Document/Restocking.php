@@ -19,7 +19,7 @@ class Restocking
     private $id;
 
     /**
-     * @ODM\ReferenceMany(targetDocument="Drinks\Document\User", mappedBy="restockings")
+     * @ODM\ReferenceMany(targetDocument="Drinks\Document\User", inversedBy="restockings")
      */
     private $users = array();
 
@@ -54,6 +54,10 @@ class Restocking
     {
         if (null == $this->date) {
             $this->date = new \MongoDate();
+        }
+
+        foreach ($this->users as $user) {
+            $user->resetDrinks();
         }
     }
 
@@ -90,7 +94,7 @@ class Restocking
     }
 
     /**
-     * @param \Doctrine\Common\Collections\ArrayCollection  $users
+     * @param \Doctrine\Common\Collections\ArrayCollection $users
      */
     public function setUsers($users)
     {

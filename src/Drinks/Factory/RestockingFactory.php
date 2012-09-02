@@ -34,7 +34,7 @@ class RestockingFactory
             return new \MongoId($value);
         }, $datas['user_ids']);
 
-        $users = $this->dm->getRepository('Drinks\\Document\\User')->findByIds(array('_id' => $ids));
+        $users = $this->dm->getRepository('Drinks\\Document\\User')->findByIds($ids);
 
         $collection = new \Doctrine\Common\Collections\ArrayCollection();
         foreach ($users as $user) {

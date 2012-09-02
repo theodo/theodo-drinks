@@ -17,38 +17,59 @@ class User implements UserInterface
 {
     /**
      * @ODM\Id
+     * @var integer
      */
     private $id;
 
     /**
      * @ODM\String
+     * @var string
      */
     private $name;
 
     /**
      * @ODM\Int
+     * @var integer
      */
     private $balance;
 
     /**
      * @ODM\String
+     * @var string
      */
     private $salt;
 
     /**
      * @ODM\String
+     * @var string
      */
     private $password;
 
     /**
      * @ODM\String
+     * @var string
      */
     private $roles;
 
     /**
      * @ODM\ReferenceMany(targetDocument="Drinks\Document\Transaction", mappedBy="user")
+     * @var ArrayCollection
      */
-    private $transactions = array();
+    private $transactions;
+
+    /**
+     * @ODM\ReferenceMany(targetDocument="Drinks\Document\Restocking", mappedBy="users")
+     * @var ArrayCollection
+     */
+    private $restockings;
+
+    /**
+     * Stores the number of drinks consummed by the user.
+     *
+     * @ODM\Int
+     * @var integer
+     */
+    private $drinks;
 
     /**
      * Constructor
@@ -56,6 +77,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->transactions = new ArrayCollection();
+        $this->restockings  = new ArrayCollection();
     }
 
     /**
@@ -237,5 +259,45 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    /**
+     * @return int
+     */
+    public function getDrinks()
+    {
+        return $this->drinks;
+    }
+
+    /**
+     * Add a drink to the count.
+     */
+    public function addDrink()
+    {
+        $this->drinks += 1;
+    }
+
+    /**
+     * Reset the drinks count.
+     */
+    public function resetDrinks()
+    {
+        $this->drinks = 0;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $restockings
+     */
+    public function setRestockings($restockings)
+    {
+        $this->restockings = $restockings;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getRestockings()
+    {
+        return $this->restockings;
     }
 }
