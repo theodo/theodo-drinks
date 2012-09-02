@@ -4,7 +4,6 @@ namespace Drinks\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Drinks\Document\Consumption;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**

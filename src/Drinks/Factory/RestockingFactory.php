@@ -25,7 +25,7 @@ class RestockingFactory
     }
 
     /**
-     * @param array $datas
+     * @param  array                       $datas
      * @return \Drinks\Document\Restocking
      */
     public function createRestocking(array $datas)
@@ -53,7 +53,7 @@ class RestockingFactory
     }
 
     /**
-     * @param array $datas
+     * @param  array                           $datas
      * @return \Drinks\Document\RestockingLine
      */
     public function createRestockingLine(array $datas)

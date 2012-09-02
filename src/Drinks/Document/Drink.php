@@ -3,7 +3,6 @@
 namespace Drinks\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Drink class.
@@ -131,6 +130,7 @@ class Drink
     public function getFormattedSalePrice()
     {
         setlocale(LC_MONETARY, 'fr_FR');
+
         return money_format('%(#10n', $this->salePrice / 100);
     }
 
@@ -140,6 +140,7 @@ class Drink
     public function getFormattedPurchasePrice()
     {
         setlocale(LC_MONETARY, 'fr_FR');
+
         return money_format('%(#10n', $this->purchasePrice / 100);
     }
 

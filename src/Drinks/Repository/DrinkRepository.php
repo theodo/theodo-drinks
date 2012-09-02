@@ -27,7 +27,7 @@ class DrinkRepository extends DocumentRepository
     /**
      * Find drinks by ids.
      *
-     * @param array $ids
+     * @param  array                                                                                                  $ids
      * @return bool|\Doctrine\MongoDB\ArrayIterator|\Doctrine\MongoDB\Cursor|\Doctrine\MongoDB\EagerCursor|mixed|null
      */
     public function findByIds(array $ids)

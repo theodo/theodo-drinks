@@ -3,7 +3,6 @@
 namespace Drinks\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Drinks\Document\Drink;
 use Drinks\Document\User;
 
 /**

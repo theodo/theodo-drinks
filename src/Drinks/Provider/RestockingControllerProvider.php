@@ -20,7 +20,7 @@ class RestockingControllerProvider  implements ControllerProviderInterface
     protected $app;
 
     /**
-     * @param Application $app
+     * @param  Application                 $app
      * @return \Silex\ControllerCollection
      */
     public function connect(Application $app)
@@ -56,7 +56,7 @@ class RestockingControllerProvider  implements ControllerProviderInterface
                 if ($form->isValid()) {
                     $restocking = $app['restocking.factory']->createRestocking($form->getData());
 
-                    $dm->persist($restocking);
+                        $dm->persist($restocking);
                     $dm->flush();
 
                     return $app->redirect($app['url_generator']->generate('restocking_index'));

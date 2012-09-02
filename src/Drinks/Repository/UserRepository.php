@@ -12,7 +12,7 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
 class UserRepository extends DocumentRepository
 {
     /**
-     * @param array $ids
+     * @param  array                                                                                                  $ids
      * @return bool|\Doctrine\MongoDB\ArrayIterator|\Doctrine\MongoDB\Cursor|\Doctrine\MongoDB\EagerCursor|mixed|null
      */
     public function findByIds(array $ids)

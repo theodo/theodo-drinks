@@ -20,7 +20,7 @@ class DrinkControllerProvider  implements ControllerProviderInterface
     protected $app;
 
     /**
-     * @param Application $app
+     * @param  Application                 $app
      * @return \Silex\ControllerCollection
      */
     public function connect(Application $app)

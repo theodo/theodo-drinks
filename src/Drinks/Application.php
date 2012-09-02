@@ -17,8 +17,6 @@ use Drinks\Factory\TransactionFactory;
 use Drinks\Factory\RestockingFactory;
 use Drinks\Security\Provider\UserProvider;
 
-use Symfony\Component\Security\Http\Firewall\RememberMeListener;
-
 // Controller providers usage.
 use Drinks\Provider\UserControllerProvider;
 use Drinks\Provider\DrinkControllerProvider;

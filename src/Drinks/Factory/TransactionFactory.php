@@ -21,8 +21,8 @@ class TransactionFactory
         $this->translator = $translator;
     }
     /**
-     * @param User $user
-     * @param Drink|null $drink
+     * @param  User                 $user
+     * @param  Drink|null           $drink
      * @return Document\Transaction
      */
     public function create(User $user, Drink $drink = null)
@@ -39,8 +39,8 @@ class TransactionFactory
     }
 
     /**
-     * @param User $user
-     * @param Drink|null $drink
+     * @param  User                 $user
+     * @param  Drink|null           $drink
      * @return Document\Transaction
      */
     public function createCredit(User $user, Drink $drink = null)
@@ -52,8 +52,8 @@ class TransactionFactory
     }
 
     /**
-     * @param User $user
-     * @param Drink|null $drink
+     * @param  User                 $user
+     * @param  Drink|null           $drink
      * @return Document\Transaction
      */
     public function createDebit(User $user, Drink $drink = null)
@@ -69,8 +69,8 @@ class TransactionFactory
     }
 
     /**
-     * @param User $user
-     * @param Drink|null $drink
+     * @param  User       $user
+     * @param  Drink|null $drink
      * @return array
      */
     public function createCompleteTransaction(User $user, Drink $drink = null)
