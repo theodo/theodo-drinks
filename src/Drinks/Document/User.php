@@ -22,6 +22,7 @@ class User implements UserInterface
 
     /**
      * @ODM\String
+     * @ODM\UniqueIndex
      * @var string
      */
     private $name;

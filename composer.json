@@ -12,6 +12,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/benja-M-1/SilexServiceProviders.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/benja-M-1/KnpOAuthBundle.git"
         }
     ],
     "require":     {
@@ -25,7 +29,9 @@
         "symfony/validator":                             "dev-master",
         "symfony/locale":                                "dev-master",
         "symfony/twig-bridge":                           "dev-master",
-        "symfony/security":                              "dev-master"
+        "symfony/security":                              "dev-master",
+        "symfony/yaml":                                  "dev-master",
+        "knplabs/knp-oauth-bundle":                      "dev-master"
     },
     "autoload":    {
         "psr-0": {

@@ -7,7 +7,6 @@ use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\FormServiceProvider;
 use Silex\Provider\MonologServiceProvider;
 use Silex\Provider\SessionServiceProvider;
-use Silex\Provider\SecurityServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\UrlGeneratorServiceProvider;
@@ -16,11 +15,14 @@ use Knp\Silex\ServiceProvider\DoctrineMongoDBServiceProvider;
 use Drinks\Factory\TransactionFactory;
 use Drinks\Factory\RestockingFactory;
 use Drinks\Security\Provider\UserProvider;
+use Drinks\Provider\OAuthSecurityServiceProvider;
 
 // Controller providers usage.
 use Drinks\Provider\UserControllerProvider;
 use Drinks\Provider\DrinkControllerProvider;
 use Drinks\Provider\RestockingControllerProvider;
+
+use Knp\Bundle\OAuthBundle\Security\Core\Authentication\Provider\OAuthProvider;
 
 /**
  * Application class.
@@ -33,6 +35,7 @@ class Application extends BaseApplication
     {
         $this['root_dir']   = realpath(__DIR__.'/../..');
         $this['src_dir']    = realpath(__DIR__);
+        $this['config_dir'] = $this['src_dir'].'/../config';
         $this['vendor_dir'] = $this['root_dir'].'/vendor';
         $this['cache_dir']  = $this['root_dir'].'/cache';
         $this['log_dir']    = $this['root_dir'].'/log';
@@ -102,15 +105,44 @@ class Application extends BaseApplication
     {
         $app = $this;
 
-        $this->register(new SecurityServiceProvider());
+        $app['buzz.client.factory'] = $app->protect(function ($client) use ($app) {
+            return $app->share(function () use ($client, $app) {
+                $clients = array(
+                    'curl'      => '\Buzz\Client\Curl',
+                    'multicurl' => '\Buzz\Client\MultiCurl',
+                    'stream'    => '\Buzz\Client\FileGetContent',
+                );
+
+                if (false == isset($clients[$client])) {
+                    throw new \InvalidArgumentException(sprintf('The client "%s" does not exist, curl, multicurl and stream availables.', $client));
+                }
+
+                $client = $clients[$client];
+
+                return new $client();
+            });
+        });
+
+        $this['buzz.client'] = $app['buzz.client.factory']('curl');
+
+        $this->register(new OAuthSecurityServiceProvider());
+
+        $loader = \Symfony\Component\Yaml\Yaml::parse($this['config_dir'].'/config.yml');
 
         $this['security.firewalls'] = array(
-            'login' => array(
-                'pattern' => '^/user/login$',
-            ),
             'front' => array(
-                'pattern' => '^/',
-                'form' => array('login_path' => '/user/login', 'check_path' => '/login_check'),
+                'pattern' => '^.*',
+                'oauth' => array(
+                    'oauth_provider'    => 'google',
+                    'infos_url'         => 'https://www.googleapis.com/oauth2/v1/userinfo',
+                    'username_path'     => 'email',
+                    'scope'             => 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+                    'login_path'        => '/login',
+                    'check_path'        => '/login_check',
+                    'failure_path'      => '/',
+                    'client_id'         => $loader['google']['client_id'],
+                    'secret'            => $loader['google']['secret'],
+                ),
                 'users'=> $this->share(function () use ($app) {
                     return new UserProvider($app['doctrine.odm.mongodb.dm'], 'Drinks\\Document\\User');
                 }),

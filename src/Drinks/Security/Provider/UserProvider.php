@@ -4,6 +4,7 @@ namespace Drinks\Security\Provider;
 
 use Drinks\Document\User;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Knp\Bundle\OAuthBundle\Security\Core\UserProvider\OAuthUserProvider;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -14,7 +15,7 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
  *
  * @author Benjamin Grandfond <benjamin.grandfond@gmail.com>
  */
-class UserProvider implements UserProviderInterface
+class UserProvider extends OAuthUserProvider
 {
     /**
      * @var DocumentManager
@@ -48,10 +49,21 @@ class UserProvider implements UserProviderInterface
      */
     public function loadUserByUsername($username)
     {
-        $user = $this->dm->getRepository($this->documentClass)->findOneBy(array('name' => $username));
+        if (false != strpos($username, '@')) {
+            if (false == strpos($username, 'theodo.fr')) {
+                throw new \Symfony\Component\Security\Core\Exception\AuthenticationException('The mail is not valid.');
+            }
+
+            $parts = explode('@', $username);
+            $name = reset($parts);
+        } else {
+            $name = $username;
+        }
+
+        $user = $this->dm->getRepository($this->documentClass)->findOneBy(array('name' => $name));
 
         if (!$user) {
-            throw new UsernameNotFoundException(sprintf('User with username "%s" not found', $username));
+            $user = $this->createUser($name);
         }
 
         return $user;
@@ -78,6 +90,7 @@ class UserProvider implements UserProviderInterface
 
         return $this->loadUserByUsername($user->getUsername());
     }
+
     /**
      * Whether this provider supports the given user class
      *
@@ -88,5 +101,22 @@ class UserProvider implements UserProviderInterface
     public function supportsClass($class)
     {
         return $class == $this->documentClass;
+    }
+
+    /**
+     * Create, save and return a new user.
+     *
+     * @param $name
+     * @return Symfony\Component\Security\Core\User\UserInterface
+     */
+    public function createUser($name)
+    {
+        $user = new $this->documentClass();
+        $user->setName($name);
+
+        $this->dm->persist($user);
+        $this->dm->flush();
+
+        return $user;
     }
 }

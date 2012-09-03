@@ -134,14 +134,6 @@ class UserControllerProvider  implements ControllerProviderInterface
         ->method('GET|POST')
         ->before(array($this, 'findUser'));
 
-        $controllers->get('/login', function(Request $request) use ($app) {
-            return $app['twig']->render('User/login.html.twig', array(
-                'error'         => $app['security.last_error']($request),
-                'last_username' => $app['session']->get('_security.last_username'),
-            ));
-        })
-        ->bind('user_login');
-
         return $controllers;
     }
 
