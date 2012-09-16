@@ -19,8 +19,8 @@
             {% for drink in drinks %}
             <tr>
                 <td>{{ drink.name }}</td>
-                <td>{{ drink.purchasePrice }}</td>
-                <td>{{ drink.salePrice~'€' }}</td>
+                <td>{{ drink.formattedPurchasePrice }}</td>
+                <td>{{ drink.formattedSalePrice }}</td>
                 <td>{{ drink.quantity }}</td>
                 <td>
                     <a class="btn btn-danger" href="{{ path('backend_drink_delete', { id: drink.id }) }}">Supprimer</a>
