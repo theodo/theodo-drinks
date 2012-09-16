@@ -3,6 +3,8 @@ parameters:
     stock.factory.class:         Theodo\DrinksBundle\Factory\StockFactory
     drinks.user_provider.class:  Theodo\DrinksBundle\Security\User\UserProvider
 
+    drinks.converter.doctrine.odm.mongodb.class: Theodo\DrinksBundle\Request\ParamConverter\MongodbParamConverter
+
 services:
     transaction.factory:
         class: %transaction.factory.class%
@@ -17,3 +19,10 @@ services:
         class: %drinks.user_provider.class%
         arguments:
             - @doctrine.odm.mongodb.document_manager
+
+    drinks.converter.doctrine.odm.mongodb:
+        class: %drinks.converter.doctrine.odm.mongodb.class%
+        tags:
+            - { name: request.param_converter, converter:doctrine.odm }
+        arguments:
+            - @doctrine_mongodb
