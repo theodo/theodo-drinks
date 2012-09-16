@@ -55,6 +55,8 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{ path('frontend_user_balance') }}">{{ 'Mon solde' }}</a></li>
                         <li><a href="{{ path('frontend_user_transactions') }}">{{ 'Mes transactions' }}</a></li>
+                        <li><a href="{{ path('fos_user_profile_edit') }}">{{ 'Mon profil' }}</a></li>
+                        <li><a href="{{ path('fos_user_change_password') }}">{{ 'Mon mot de passe' }}</a></li>
                         <li class="divider"></li>
                         {% if is_granted('ROLE_ADMIN') %}
                             <li><a href="{{ path('backend_user_list') }}">{{ 'Utilisateurs' }}</a></li>
