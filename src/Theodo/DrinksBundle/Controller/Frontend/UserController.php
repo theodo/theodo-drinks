@@ -77,7 +77,7 @@ class UserController extends Controller
                 $manager->persist($credit);
                 $manager->flush();
 
-                return new RedirectResponse($this->container->get('router')->generate('frontend_user_transactions'));
+                return $this->redirect('frontend_user_transactions');
             }
         }
 
@@ -104,6 +104,6 @@ class UserController extends Controller
         $manager->persist($credit);
         $manager->flush();
 
-        return new RedirectResponse($this->container->get('router')->generate('frontend_user_transactions'));
+        return $this->redirect('frontend_user_transactions');
     }
 }

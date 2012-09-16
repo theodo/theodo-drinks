@@ -37,4 +37,15 @@ abstract class Controller extends ContainerAware
             ->get('form.factory')
             ->create($type, $data, $options, $parent);
     }
+
+    /**
+     * @param $route
+     * @param array $params
+     * @param bool $absolute
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function redirect($route, array $params = array(), $absolute = false)
+    {
+        return new RedirectResponse($this->container->get('router')->generate($route, $params, $absolute));
+    }
 }
