@@ -1,5 +1,10 @@
-cache
-log
-vendor
+app/bootstrap.php.cache
+app/cache/*
+app/logs/*
+app/config/parameters.yml
+bin
+build/
 composer.phar
-src/config/config.yml
+/vendor
+web/bundles/
+

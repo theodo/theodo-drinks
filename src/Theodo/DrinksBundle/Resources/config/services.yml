@@ -1,0 +1,19 @@
+parameters:
+    transaction.factory.class:   Theodo\DrinksBundle\Factory\TransactionFactory
+    stock.factory.class:         Theodo\DrinksBundle\Factory\StockFactory
+    drinks.user_provider.class:  Theodo\DrinksBundle\Security\User\UserProvider
+
+services:
+    transaction.factory:
+        class: %transaction.factory.class%
+        arguments:
+            - @translator
+    stock.factory:
+        class: %stock.factory.class%
+        arguments:
+            - @doctrine.odm.mongodb.document_manager
+
+    drinks.user_provider:
+        class: %drinks.user_provider.class%
+        arguments:
+            - @doctrine.odm.mongodb.document_manager

@@ -1,0 +1,34 @@
+parameters:
+    drinks.abstract_controller.class:       Theodo\DrinksBundle\Controller\Controller
+
+    drinks.backend_user_controller.class:   Theodo\DrinksBundle\Controller\Backend\UserController
+    drinks.backend_drink_controller.class:  Theodo\DrinksBundle\Controller\Backend\DrinkController
+
+    drinks.frontend_drink_controller.class: Theodo\DrinksBundle\Controller\Frontend\DrinkController
+    drinks.frontend_stock_controller.class: Theodo\DrinksBundle\Controller\Frontend\StockController
+    drinks.frontend_user_controller.class:  Theodo\DrinksBundle\Controller\Frontend\UserController
+
+services:
+    drinks.abstract_controller:
+        class: %drinks.abstract_controller.class%
+        abstract:  true
+        calls:
+            - [setContainer, [@service_container]]
+    # Backend
+    drinks.backend_user_controller:
+        class: %drinks.backend_user_controller.class%
+        parent: drinks.abstract_controller
+    drinks.backend_drink_controller:
+        class: %drinks.backend_drink_controller.class%
+        parent: drinks.abstract_controller
+
+    # Frontend
+    drinks.frontend_drink_controller:
+        class: %drinks.frontend_drink_controller.class%
+        parent: drinks.abstract_controller
+    drinks.frontend_stock_controller:
+        class: %drinks.frontend_stock_controller.class%
+        parent: drinks.abstract_controller
+    drinks.frontend_user_controller:
+        class: %drinks.frontend_user_controller.class%
+        parent: drinks.abstract_controller

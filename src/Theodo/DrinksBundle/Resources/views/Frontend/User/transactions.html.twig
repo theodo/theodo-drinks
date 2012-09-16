@@ -1,0 +1,43 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+<div class="row-fluid">
+    <div class="span12">
+        <h3>{{ 'Mes transactions' }}</h3>
+
+        {% if user.balance < 0 %}
+            <div class="alert alert-error">
+              <strong>Attention !</strong> Ton solde est négatif, peux-tu le <a href="{{ path('frontend_user_balance')}}">mettre à jour</a> ?
+            </div>
+        {% endif %}
+
+        <table class="table table-striped table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th>{{ 'Label' }}</th>
+                    <th>{{ 'Montant' }}</th>
+                    <th>{{ 'Date' }}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for transaction in transactions %}
+                <tr>
+                    <td>
+                        <span class="label{% if transaction.type == 'credit' %} label-success{% endif %}">{{ transaction.type }}</span>
+                        {{ transaction }}
+                    </td>
+                    <td>
+                        {{ transaction.getAmount(true) }}€
+                    </td>
+                    <td>
+                        {{ transaction.date|date('l j F Y H:i:s') }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr><td colspan="3">{{ 'Tu n\'a pas encore bu.' }}</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

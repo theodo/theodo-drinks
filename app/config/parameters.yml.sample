@@ -1,0 +1,20 @@
+parameters:
+    database_server:    mongodb://localhost
+    database_name:      theodo-drinks
+
+    mailer_transport:   smtp
+    mailer_host:        localhost
+    mailer_user:        ~
+    mailer_password:    ~
+
+    locale:             fr
+    secret:             ThisTokenIsNotSoSecretChangeIt
+    remember_me.secret: ThisRememberMeTokenIsNotSoSecretChangeIt
+
+    google_client_id:     ~
+    google_client_secret: ~
+
+    # assetic
+    assetic_node:       /usr/bin/node
+    assetic_node_path:  %kernel.root_dir%/../node_modules
+    assetic_less:       %assetic_node_path%/.bin/lessc

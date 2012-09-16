@@ -1,0 +1,110 @@
+{% from 'MopaBootstrapBundle::flash.html.twig' import session_flash %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8"/>
+
+    <title>Theodo Drinks</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+    {% stylesheets
+            '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
+            '@TheodoDrinksBundle/Resources/public/css/main.css'
+    %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <ul class="nav">
+                <li>
+                    <a class="brand" href="{{ path('homepage') }}">Theodo Drinks</a>
+                </li>
+                <li class="divider-vertical"></li>
+                {% if is_granted('ROLE_USER') %}
+                <li><a href="{{ path('frontend_drink_select') }}" class="btn btn-primary">{{ 'Prendre une cannette' }}</a></li>
+                <li><a href="{{ path('frontend_stock_list') }}">{{ 'Stock de cannettes' }}</a></li>
+                <li><a href="{{ path('frontend_drink_leaderboard') }}">{{ 'Leaderboard' }}</a></li>
+                {% endif %}
+            </ul>
+            {% if is_granted('ROLE_USER') %}
+            <ul class="nav pull-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Salut <strong>{{ app.security.token.user }}</strong>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('frontend_user_balance') }}">{{ 'Mon solde' }}</a></li>
+                        <li><a href="{{ path('frontend_user_transactions') }}">{{ 'Mes transactions' }}</a></li>
+                        <li class="divider"></li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li><a href="{{ path('backend_user_list') }}">{{ 'Utilisateurs' }}</a></li>
+                            <li><a href="{{ path('backend_drink_list') }}">{{ 'Boissons' }}</a></li>
+                            <li class="divider"></li>
+                        {%  endif %}
+                        <li><a href="{{ path('logout') }}">{{ 'Déconnexion' }}</a></li>
+                    </ul>
+                </li>
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    {% block flashes %}
+    {% if app.session.flashbag.peekAll|length > 0 %}
+    <div class="row-fluid">
+        <div class="span12">
+        {{ session_flash() }}
+        </div>
+    </div>
+    {% endif %}
+    {% endblock flashes %}
+    {% block content %}{% endblock %}
+</div>
+
+{% block javascript %}
+    {% javascripts
+        'http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-transition.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-modal.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-dropdown.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-scrollspy.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-tab.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-tooltip.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-popover.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-alert.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-button.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-collapse.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-carousel.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-typeahead.js'
+        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
+        '@TheodoDrinksBundle/Resources/public/js/main.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+</body>
+</html>

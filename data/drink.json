@@ -1,7 +1,0 @@
-[
-    { "name": "Coca Cola", "purchasePrice": 385, "salePrice": 50, "quantity": 8 },
-    { "name": "Coca Cola Zero", "purchasePrice": 385, "salePrice": 50, "quantity": 5 },
-    { "name": "Liptonic", "purchasePrice": 385, "salePrice": 50, "quantity": 6 },
-    { "name": "Iced Tea", "purchasePrice": 385, "salePrice": 50, "quantity": 6 },
-    { "name": "Minute Maid", "purchasePrice": 485, "salePrice": 100, "quantity": 6 }
-]

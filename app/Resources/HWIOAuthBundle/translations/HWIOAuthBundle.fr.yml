@@ -1,0 +1,14 @@
+header:
+    connecting: Connexion
+    success: Le compte '%name%' a bien été connecté !
+    register: Inscrivez-vous avec le compte '%name%'
+    registration_success: Vous êtes bien inscrit et connecté avec le compte '%username%'!
+
+connect:
+    confirm:
+        cancel: Annuler
+        submit: Connecter le compte
+        text: Etes-vous sûr de vouloir compte %service% (%name%) avec votre compte courant ?
+    registration:
+        cancel: Annuler
+        submit: Enregistrer le compte

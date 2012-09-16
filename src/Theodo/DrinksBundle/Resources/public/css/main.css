@@ -1,0 +1,41 @@
+.navbar .nav > li > a.btn {
+    float: inherit;
+    padding: 4px 10px 4px;
+    color: #FFF;
+    text-shadow: none;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.navbar .nav > li > a.btn:hover {
+    color: #ffffff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    text-decoration: none;
+    background-color: #0055cc;
+    *background-color: #004ab3;
+    /* Buttons in IE7 don't get borders, so darken on hover */
+
+    background-position: 0 -15px;
+    -webkit-transition: background-position 0.1s linear;
+       -moz-transition: background-position 0.1s linear;
+        -ms-transition: background-position 0.1s linear;
+         -o-transition: background-position 0.1s linear;
+            transition: background-position 0.1s linear;
+}
+
+
+table {
+    font-size: 13px;
+}
+
+#login-box {
+    float: none;
+    margin: 0 auto;
+}
+
+.btn.btn-google {
+    background-image: url('/bundles/theododrinks/images/google.png');
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: 30px;
+    padding-left: 30px;
+}

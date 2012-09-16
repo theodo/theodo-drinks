@@ -1,42 +1,77 @@
 {
-    "name":        "theodo/theodo-drinks",
-    "description": "Theodo drinks manage the team drinks.",
-    "authors":     [
+    "name":              "theodo/theodo-drinks",
+    "description":       "Theodo drinks manage the team drinks.",
+    "authors": [
         {
             "name":     "Benjamin Grandfond",
             "email":    "benjaming@theodo.fr",
             "homepage": "http://theodo.fr"
         }
     ],
-    "repositories": [
+    "repositories":      [
         {
-            "type": "vcs",
-            "url": "https://github.com/benja-M-1/SilexServiceProviders.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/benja-M-1/KnpOAuthBundle.git"
+            "type":    "package",
+            "package": {
+                "version": "master",
+                "name":    "twitter/bootstrap",
+                "source":  {
+                    "url":       "https://github.com/twitter/bootstrap.git",
+                    "type":      "git",
+                    "reference": "master"
+                },
+                "dist":    {
+                    "url":  "https://github.com/twitter/bootstrap/zipball/master",
+                    "type": "zip"
+                }
+            }
         }
     ],
-    "require":     {
-        "silex/silex":                                   "dev-master",
-        "docteurklein/silex-doctrine-service-providers": "dev-master",
-        "twig/twig":                                     "dev-master",
-        "monolog/monolog":                               "dev-master",
-        "symfony/form":                                  "dev-master",
-        "symfony/config":                                "dev-master",
-        "symfony/translation":                           "dev-master",
-        "symfony/validator":                             "dev-master",
-        "symfony/locale":                                "dev-master",
-        "symfony/twig-bridge":                           "dev-master",
-        "symfony/security":                              "dev-master",
-        "symfony/yaml":                                  "dev-master",
-        "knplabs/knp-oauth-bundle":                      "dev-master"
+    "require": {
+        "php":                               ">=5.3.3",
+        "symfony/symfony":                   "2.1.*",
+        "doctrine/mongodb-odm-bundle":       "dev-master",
+        "twig/extensions":                   "1.0.*",
+        "symfony/assetic-bundle":            "2.1.*",
+        "symfony/swiftmailer-bundle":        "2.1.*",
+        "symfony/monolog-bundle":            "2.1.*",
+        "sensio/distribution-bundle":        "2.1.*",
+        "sensio/framework-extra-bundle":     "2.1.*",
+        "sensio/generator-bundle":           "2.1.*",
+        "jms/security-extra-bundle":         "1.2.*",
+        "jms/di-extra-bundle":               "1.1.*",
+        "mopa/bootstrap-bundle":             "dev-master",
+        "twitter/bootstrap":                 "master",
+        "hwi/oauth-bundle":                  "dev-master",
+        "friendsofsymfony/user-bundle":      "dev-master",
+        "doctrine/doctrine-fixtures-bundle": "dev-master"
     },
-    "autoload":    {
+    "autoload": {
         "psr-0": {
-            "Drinks": "src/"
+            "": "src/"
         }
     },
-    "minimum-stability": "dev"
+    "scripts": {
+        "post-install-cmd": [
+            "Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+        ],
+        "post-update-cmd":  [
+            "Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+        ]
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-web-dir": "web"
+    }
 }
