@@ -66,7 +66,7 @@ class DrinkController extends Controller
 
                 $request->getSession()->getFlashBag()->add('notice', sprintf('%s created.', $drink->getName()));
 
-                return new RedirectResponse($this->container->get('router')->generate('backend_drink_list'));
+                return $this->redirect('backend_drink_list');
             }
         }
 

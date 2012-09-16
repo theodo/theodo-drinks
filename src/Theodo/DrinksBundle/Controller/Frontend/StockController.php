@@ -65,7 +65,7 @@ class StockController extends Controller
                     $dm->persist($restocking);
                 $dm->flush();
 
-                return new RedirectResponse($this->container->get('router')->generate('frontend_stock_list'));
+                return $this->redirect('frontend_stock_list');
             }
         }
 

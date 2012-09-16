@@ -32,12 +32,17 @@ class UserController extends Controller
 
     /**
      * @Extra\Route("/delete/{id}", name="backend_user_delete")
-     * @Extra\ParamConverter("user", class="Theodo\DrinksBundle\Document\User")
+     * @Extra\ParamConverter("user", class="TheodoDrinksBundle:User")
      *
      * @param \Theodo\DrinksBundle\Document\User $user
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(User $user)
     {
-        throw new \Exception('Implement this.');
+        $dm = $this->getDocumentManager();
+        $dm->remove($user);
+        $dm->flush();
+
+        return $this->redirect('backend_user_list');
     }
 }
